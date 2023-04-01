@@ -1,16 +1,11 @@
 <p align="center">
   <h3 align="center">Shook</h3>
-  <p align="center">
-Shell as a Webhook  
-Enable the <strong>shell</strong> scripts could be triggered by <strong>Webhook</strong></p>
+<p align="center">Enable the <strong>Shell</strong> scripts could be triggered by <strong>Webhook</strong></p>
 </p>
 
 [![Release](https://img.shields.io/github/release/thankrain/shook.svg?style=for-the-badge)](https://github.com/thankrain/shook/releases/latest)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=for-the-badge)](/LICENSE)
 [![Powered By: ThankRain](https://img.shields.io/badge/powered%20by-thankrain-red.svg?style=for-the-badge)](https://github.com/thankrain)
-
-
----
 
 ### WARNING
 
@@ -62,6 +57,7 @@ The server default register the path `/admin` to manage the webhooks, avoid to u
 - [ ] Basic Operation Auth
 
 # License
+
 ```text
 MIT License
 
