@@ -54,6 +54,7 @@ The server default register the path `/admin` to manage the webhooks, avoid to u
 
 - [x] Basic GET and POST Webhook Without Params
 - [ ] Basic Operation Auth
+- [ ] Support auto git repository deploy shell scripts
 
 # License
 
