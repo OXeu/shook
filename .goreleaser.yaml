@@ -7,6 +7,7 @@ builds:
       - linux
       - windows
       - darwin
+    id: shook-cli
     main: ./src/cli
   - env:
       - CGO_ENABLED=0
@@ -14,6 +15,7 @@ builds:
       - linux
       - windows
       - darwin
+    id: shook-server
     main: ./src/server
 
 archives:
