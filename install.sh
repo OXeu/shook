@@ -29,5 +29,5 @@ export TAR_FILE="$TMPDIR/${BASENAME}_$(uname -s)_$(uname -m).tar.gz"
 
 tar -xf "$TAR_FILE" -C "$TMPDIR"
 ls ${TMPDIR}
-sudo mv "${TMPDIR}/shook-cli" "/usr/bin/shook"
+sudo mv "${TMPDIR}/shook" "/usr/bin/shook"
 sudo mv "${TMPDIR}/shook-server" "/usr/bin/shook-server"
