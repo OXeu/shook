@@ -45,7 +45,7 @@ shook run hello
 curl http://127.0.0.1:2399/hello
 ```
 
-# Reserved
+# Notice
 
 The server default register the path `/admin` to manage the webhooks, avoid to use this path as webhook invoke path
 
