@@ -21,9 +21,7 @@ curl -sfL https://raw.githubusercontent.com/ThankRain/shook/main/install.sh | ba
 
 # Usage
 
-1. Clone this repo
-2. Run `docker-compose up -d` in the repo dir
-3. Create a new webhook
+### Create a new webhook
 
 ```shell
 $ # Login
@@ -35,13 +33,13 @@ Created!
 $ # When trigger /hello, the app would cd to current folder and run the `./hello.sh` command 
 ```
 
-4. Invoke the webhook
+### Invoke the webhook
 
 ```shell
 shook run hello
 ```
 
-Or
+**Or**
 
 ```shell
 curl http://127.0.0.1:2399/hello
