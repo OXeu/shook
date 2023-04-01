@@ -1,7 +1,6 @@
 #!/bin/sh
 set -e
-
-echo "Downloading CLI..."
+echo "Searching latest version..."
 RELEASES_URL="https://github.com/ThankRain/shook/releases"
 BASENAME="shook"
 LATEST="$(curl -sI https://github.com/ThankRain/shook/releases/latest | grep location: | awk '{printf $2}' | cut -d '/' -f8 | tr -d '\r\n')"
@@ -28,6 +27,7 @@ export TAR_FILE="$TMPDIR/${BASENAME}_$(uname -s)_$(uname -m).tar.gz"
 )
 
 tar -xf "$TAR_FILE" -C "$TMPDIR"
-ls ${TMPDIR}
 sudo mv "${TMPDIR}/shook" "/usr/bin/shook"
 sudo mv "${TMPDIR}/shook-server" "/usr/bin/shook-server"
+echo "Congratulations!"
+echo "shook & shook-server installed successfully!"

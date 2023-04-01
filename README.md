@@ -1,14 +1,24 @@
 # Shook
+
 Shell as a Webhook  
 Enable the **shell** scripts could be triggered by **webhook**
 
 ### WARNING
+
 This repo is at ***experimental*** and contains ***safety risks***, please don't use it in the production environment!!!
 
+# Install
+
+```shell
+curl -sfL https://raw.githubusercontent.com/ThankRain/shook/main/install.sh | bash
+```
+
 # Usage
+
 1. Clone this repo
 2. Run `docker-compose up -d` in the repo dir
 3. Create a new webhook
+
 ```shell
 $ # Login
 $ shook login <host:port> <username> <password>
