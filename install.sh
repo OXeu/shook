@@ -25,9 +25,10 @@ export TAR_FILE="$TMPDIR/${BASENAME}_$(uname -s)_$(uname -m).tar.gz"
 	echo "Verifying checksums..."
 	sha256sum --ignore-missing --quiet --check checksums.txt
 )
-
 tar -xf "$TAR_FILE" -C "$TMPDIR"
+echo "Installing shook to /usr/local/bin/shook"
 sudo mv "${TMPDIR}/shook" "/usr/local/bin/shook"
+echo "Installing shook-server to /usr/local/bin/shook-server"
 sudo mv "${TMPDIR}/shook-server" "/usr/local/bin/shook-server"
 echo "Congratulations!"
 echo "shook & shook-server installed successfully!"
