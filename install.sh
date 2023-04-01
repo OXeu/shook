@@ -27,7 +27,7 @@ export TAR_FILE="$TMPDIR/${BASENAME}_$(uname -s)_$(uname -m).tar.gz"
 )
 
 tar -xf "$TAR_FILE" -C "$TMPDIR"
-sudo mv "${TMPDIR}/shook" "/usr/bin/shook"
-sudo mv "${TMPDIR}/shook-server" "/usr/bin/shook-server"
+sudo mv "${TMPDIR}/shook" "/usr/local/bin/shook"
+sudo mv "${TMPDIR}/shook-server" "/usr/local/bin/shook-server"
 echo "Congratulations!"
 echo "shook & shook-server installed successfully!"
