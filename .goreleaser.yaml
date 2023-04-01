@@ -8,7 +8,8 @@ builds:
       - windows
       - darwin
     id: shook_cli
-    main: ./src/cli
+    dir: ./src/cli
+    binary: shook
   - env:
       - CGO_ENABLED=0
     goos:
@@ -16,7 +17,8 @@ builds:
       - windows
       - darwin
     id: shook_server
-    main: ./src/server
+    dir: ./src/server
+    binary: shook-server
 
 archives:
   - format: tar.gz
