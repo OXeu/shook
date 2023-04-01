@@ -6,6 +6,7 @@
 [![Release](https://img.shields.io/github/release/thankrain/shook.svg?style=for-the-badge)](https://github.com/thankrain/shook/releases/latest)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=for-the-badge)](/LICENSE)
 [![Powered By: ThankRain](https://img.shields.io/badge/powered%20by-thankrain-red.svg?style=for-the-badge)](https://github.com/thankrain)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/thankrain/shook/release.yml?style=for-the-badge)
 
 ### WARNING
 
@@ -24,12 +25,12 @@ curl -sfL https://raw.githubusercontent.com/ThankRain/shook/main/install.sh | ba
 ### Create a new webhook
 
 ```shell
-$ # Login
-$ shook login <host:port> <username> <password>
-Login Succeeded!
+$ shook init http://127.0.0.1:2399
+Shook init succeeded!
 $ # Create a new webhook to invoke hello.sh when trigger <host:port>/hello
-$ shook hello ./hello.sh
-Created!
+$ shook create hello ./hello.sh
+/hello hooks created!
+cd /mnt/d/Develop/go/shook ; ./hello.sh
 $ # When trigger /hello, the app would cd to current folder and run the `./hello.sh` command 
 ```
 
