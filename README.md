@@ -18,16 +18,25 @@ $ shook hello ./hello.sh
 Created!
 $ # When trigger /hello, the app would cd to current folder and run the `./hello.sh` command 
 ```
+
 4. Invoke the webhook
 
 ```shell
-curl http://<host:port>/hello
+shook run hello
+```
+
+Or
+
+```shell
+curl http://127.0.0.1:2399/hello
 ```
 
 # Reserved
-The server default register the path `/adm in` to manage the webhooks, avoid to use this path as webhook invoke path 
+
+The server default register the path `/admin` to manage the webhooks, avoid to use this path as webhook invoke path
 
 # Features
+
 - [x] Basic GET and POST Webhook Without Params
 - [ ] Basic Operation Auth
 
