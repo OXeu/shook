@@ -1,11 +1,22 @@
-# Shook
-
+<p align="center">
+  <h2 align="center">Shook</h2>
+  <p align="center">
 Shell as a Webhook  
-Enable the **shell** scripts could be triggered by **webhook**
+Enable the <strong>shell</strong> scripts could be triggered by <strong>Webhook</strong></p>
+</p>
+
+[![Release](https://img.shields.io/github/release/thankrain/shook.svg?style=for-the-badge)](https://github.com/thankrain/shook/releases/latest)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=for-the-badge)](/LICENSE)
+[![Powered By: ThankRain](https://img.shields.io/badge/powered%20by-thankrain-red.svg?style=for-the-badge)](https://github.com/thankrain)
+
+
+---
 
 ### WARNING
 
 This repo is at ***experimental*** and contains ***safety risks***, please don't use it in the production environment!!!
+
+---
 
 # Install
 
