@@ -2,13 +2,24 @@ package main
 
 import (
 	"fmt"
+	"github.com/mitchellh/go-homedir"
 	"github.com/syndtr/goleveldb/leveldb"
 	"os/exec"
 )
 
+const Path = "~/.config/shook/hooks"
+
+func DbPath() string {
+	expand, err := homedir.Expand(Path)
+	if err != nil {
+		panic("get home dir error\n" + err.Error())
+		return ""
+	}
+	return expand
+}
 func run(key string) string {
 	println("Run hook /" + key)
-	db, err := leveldb.OpenFile("hooks", nil)
+	db, err := leveldb.OpenFile(DbPath(), nil)
 	if err != nil {
 		return "Database open error\n" + err.Error()
 	}
@@ -26,7 +37,7 @@ func run(key string) string {
 }
 func add(key string, pwd string, shell string) string {
 	println("Create hook /" + key)
-	db, err := leveldb.OpenFile("hooks", nil)
+	db, err := leveldb.OpenFile(DbPath(), nil)
 	if err != nil {
 		return "Database open error\n" + err.Error()
 	}
@@ -37,7 +48,7 @@ func add(key string, pwd string, shell string) string {
 		exist = false
 	}
 
-	cmd := "cd " + pwd + " && " + shell
+	cmd := "cd " + pwd + " ; " + shell
 	err = db.Put([]byte(key), []byte(cmd), nil)
 	if err != nil {
 		return "Create /" + key + " error\n" + err.Error()
@@ -49,7 +60,7 @@ func add(key string, pwd string, shell string) string {
 }
 func del(key string) string {
 	println("Delete hook /" + key)
-	db, err := leveldb.OpenFile("hooks", nil)
+	db, err := leveldb.OpenFile(DbPath(), nil)
 	if err != nil {
 		return "Database open error\n" + err.Error()
 	}
@@ -63,7 +74,7 @@ func del(key string) string {
 
 func ls() string {
 	println("List hooks")
-	db, err := leveldb.OpenFile("hooks", nil)
+	db, err := leveldb.OpenFile(DbPath(), nil)
 	if err != nil {
 		return "Database open error\n" + err.Error()
 	}
