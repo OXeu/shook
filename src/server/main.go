@@ -32,16 +32,25 @@ func main() {
 		println(resp)
 		return c.String(200, resp)
 	})
-	e.Use(middleware.KeyAuth(func(key string, c echo.Context) (bool, error) {
-		token, err := getToken()
-		if len(err) != 0 {
-			println(err)
-			return false, c.String(500, err)
-		}
-		if len(token) == 0 {
-			return true, nil
-		}
-		return key == token, nil
-	}))
+	e.Use(middleware.KeyAuthWithConfig(
+		middleware.KeyAuthConfig{
+			Skipper: func(c echo.Context) bool {
+				if c.Path() == "/:name" {
+					return true
+				}
+				return false
+			},
+			Validator: func(key string, c echo.Context) (bool, error) {
+				token, err := getToken()
+				if len(err) != 0 {
+					println(err)
+					return false, c.String(500, err)
+				}
+				if len(token) == 0 {
+					return true, nil
+				}
+				return key == token, nil
+			},
+		}))
 	e.Logger.Fatal(e.Start(":2399"))
 }

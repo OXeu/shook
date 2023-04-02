@@ -32,11 +32,14 @@ curl -sfL https://raw.githubusercontent.com/ThankRain/shook/main/install.sh | ba
 
 ```shell
 $ shook init http://127.0.0.1:2399
-Shook init succeeded!
+No token was set, generating token
+52fdfc072182654f163f5f0f9a621d72
+Server initialization successfully. Please keep your token carefully.
+Shook initialization successfully!
 $ # Create a new webhook to invoke hello.sh when trigger <host:port>/hello
 $ shook create hello ./hello.sh
 /hello hooks created!
-cd /mnt/d/Develop/go/shook ; ./hello.sh
+cd D:\Develop\go\shook\src\cli ; echo $(date) > 1.txt
 $ # When trigger /hello, the app would cd to current folder and run the `./hello.sh` command 
 ```
 
