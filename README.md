@@ -25,31 +25,42 @@ curl -sfL https://raw.githubusercontent.com/ThankRain/shook/main/install.sh | ba
 
 # Usage
 
-### Create a new webhook
+### Initialize Shook
 
 ```shell
 $ shook init http://127.0.0.1:2399
-No token was set, generating token
-52fdfc072182654f163f5f0f9a621d72
-Server initialization successfully. Please keep your token carefully.
-Shook initialization successfully!
-$ # Create a new webhook to invoke hello.sh when trigger <host:port>/hello
+# $ shook init http://127.0.0.1:2399 [specific_token]
+# No token was set, generating token
+# 52fdfc072182654f163f5f0f9a621d72
+# Server initialization successfully. Please keep your token carefully.
+# Shook initialization successfully!
+
+# Create a new webhook to invoke hello.sh when trigger <host:port>/hello
+```
+
+### Create a new webhook
+
+```shell
 $ shook create hello ./hello.sh
-/hello hooks created!
-cd D:\Develop\go\shook\src\cli ; echo $(date) > 1.txt
-$ # When trigger /hello, the app would cd to current folder and run the `./hello.sh` command 
+# $ shook create [hook_name] [script]
+# /hello hooks created!
+# $ cd D:\Develop\go\shook\src\cli ; echo $(date) > 1.txt
+
+# When trigger /hello, the app would cd to current folder and run the `./hello.sh` command 
 ```
 
 ### Invoke the webhook
 
 ```shell
-shook run hello
+$ shook run hello
+# $ shook run [hook_name]
 ```
 
 **Or**
 
 ```shell
-curl http://127.0.0.1:2399/hello
+$ curl http://127.0.0.1:2399/hello
+# curl <schema://host:post>/<hook_name>
 ```
 
 # Notice
@@ -59,7 +70,7 @@ The server default register the path `/admin` to manage the webhooks, avoid to u
 # Features
 
 - [x] Basic GET and POST Webhook Without Params
-- [ ] Basic Operation Auth
+- [x] Basic Operation Auth
 - [ ] Support auto git repository deploy shell scripts
 
 # License

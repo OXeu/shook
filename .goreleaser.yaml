@@ -42,6 +42,6 @@ changelog:
   sort: asc
   filters:
     exclude:
-      - '^[docs]'
+      - '^[doc]'
       - '^[dev]'
       - '^[test]'
