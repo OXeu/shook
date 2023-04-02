@@ -1,0 +1,16 @@
+[Unit]
+Description=Shook Service
+Documentation=https://github.com/ThankRain/shook
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=root
+LimitNPROC=500
+LimitNOFILE=1000000
+ExecStart=/usr/local/bin/shook-server
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
