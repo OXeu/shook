@@ -11,6 +11,10 @@
 
 ---
 
+# At a glance
+
+[![asciicast](https://asciinema.org/a/pntX1vG8sJQ06EqyMxViRMMdk.svg)](https://asciinema.org/a/pntX1vG8sJQ06EqyMxViRMMdk)
+
 # Install
 
 ```shell
@@ -34,20 +38,19 @@ $ shook init http://127.0.0.1:2399
 # 52fdfc072182654f163f5f0f9a621d72
 # Server initialization successfully. Please keep your token carefully.
 # Shook initialization successfully!
-
-# Create a new webhook to invoke hello.sh when trigger <host:port>/hello
 ```
 
 ### Create a new webhook
 
+Create a new webhook to invoke hello.sh when trigger <host:port>/hello
 ```shell
 $ shook create hello ./hello.sh
 # $ shook create [hook_name] [script]
 # /hello hooks created!
 # $ cd D:\Develop\go\shook\src\cli ; echo $(date) > 1.txt
-
-# When trigger /hello, the app would cd to current folder and run the `./hello.sh` command 
 ```
+
+When trigger /hello, the app would cd to current folder and run the `./hello.sh` command
 
 ### Invoke the webhook
 
