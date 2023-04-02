@@ -8,9 +8,6 @@
 [![Powered By: ThankRain](https://img.shields.io/badge/powered%20by-thankrain-red.svg?style=for-the-badge)](https://github.com/thankrain)
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/thankrain/shook/release.yml?style=for-the-badge)
 
-### WARNING
-
-This repo is at ***experimental*** and contains ***safety risks***, please don't use it in the production environment!!!
 
 ---
 
