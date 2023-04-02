@@ -62,7 +62,11 @@ func initServer(token string) string {
 		return "Init server error\n" + err.Error()
 	}
 	if exist {
-		return "Invalid Operation. This server has been initialized yet."
+		if string(t) == token {
+			return "Server authorization successfully."
+		} else {
+			return "Invalid token. This server has been initialized yet."
+		}
 	} else {
 		err = db.Put([]byte("token"), []byte(token), nil)
 		return "Server initialization successfully. Please keep your token carefully."
