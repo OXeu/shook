@@ -8,6 +8,7 @@ import (
 	"net/http"
 	url2 "net/url"
 	"path/filepath"
+	"strings"
 )
 
 const Path = "~/.config/shook/config"
@@ -29,36 +30,62 @@ func DbPath() string {
 	return expand
 }
 
-func cmdInit(url string) {
+func cmdInit(url string, token string) {
 	if len(url) == 0 {
 		println("Base URL can not be empty")
 		return
 	}
-	db, err := leveldb.OpenFile(DbPath(), nil)
-	if err != nil {
-		println("Shook init error: open database failed\n", err.Error())
-		return
-	}
-	err = db.Put([]byte("url"), []byte(url), nil)
-	if err != nil {
-		println("Shook init error: set url failed\n", err.Error())
-		return
-	}
-	println("Shook init succeeded!")
-}
 
-func getUrl() string {
-	db, err := leveldb.OpenFile(DbPath(), nil)
-	if err != nil {
-		println("Shook internal error: open database failed\n", err.Error())
-		return ""
+	if len(token) == 0 {
+		token, _ = getToken()
+		if len(token) == 0 {
+			println("No token was set, generating token")
+			token = GetRandomString(32)
+		} else {
+			println("No token was set, use previous token")
+		}
+		println(token)
 	}
-	url, err := db.Get([]byte("url"), nil)
+
+	// verify
+	formValues := url2.Values{}
+	formValues.Set("token", token)
+	formDataStr := formValues.Encode()
+	formDataBytes := []byte(formDataStr)
+	formBytesReader := bytes.NewReader(formDataBytes)
+	req, _ := http.NewRequest("PUT", url+"/admin", formBytesReader)
+	req.Header.Set("Authorization", "Bearer "+token)
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	client := http.Client{}
+	response, err := client.Do(req)
 	if err != nil {
-		println("Please run `shook init <url>` to init shook.\n", err.Error())
-		return ""
+		println("Request failed\n", err.Error())
+		return
 	}
-	return string(url)
+	all, err := io.ReadAll(response.Body)
+	if err != nil {
+		println("Response read failed\n", err.Error())
+		return
+	}
+	println(string(all))
+	if strings.Contains(string(all), "successfully") {
+		db, err := leveldb.OpenFile(DbPath(), nil)
+		if err != nil {
+			println("Shook init error: open database failed\n", err.Error())
+			return
+		}
+		err = db.Put([]byte("url"), []byte(url), nil)
+		if err != nil {
+			println("Shook init error: set url failed\n", err.Error())
+			return
+		}
+		err = db.Put([]byte("token"), []byte(token), nil)
+		if err != nil {
+			println("Shook init error: set token failed\n", err.Error())
+			return
+		}
+		println("Shook initialization successfully!")
+	}
 }
 
 func cmdCreate(key string, pwd string, shell string) {
@@ -85,7 +112,15 @@ func cmdCreate(key string, pwd string, shell string) {
 	formDataStr := formValues.Encode()
 	formDataBytes := []byte(formDataStr)
 	formBytesReader := bytes.NewReader(formDataBytes)
-	response, err := client.Post(url+"/admin/"+key, "application/x-www-form-urlencoded", formBytesReader)
+	req, _ := http.NewRequest("POST", url+"/admin/"+key, formBytesReader)
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	token, errMsg := getToken()
+	if len(errMsg) != 0 {
+		println(errMsg)
+		return
+	}
+	req.Header.Set("Authorization", "Bearer "+token)
+	response, err := client.Do(req)
 	if err != nil {
 		println("Request failed\n", err.Error())
 		return
@@ -103,6 +138,12 @@ func cmdDel(key string) {
 		return
 	}
 	req, _ := http.NewRequest("DELETE", url+"/admin/"+key, nil)
+	token, errMsg := getToken()
+	if len(errMsg) != 0 {
+		println(errMsg)
+		return
+	}
+	req.Header.Set("Authorization", "Bearer "+token)
 	client := http.Client{}
 	response, err := client.Do(req)
 	if err != nil {
@@ -123,7 +164,14 @@ func cmdRun(key string) {
 		return
 	}
 	client := http.Client{}
-	response, err := client.Get(url + "/" + key)
+	req, _ := http.NewRequest("GET", url+"/"+key, nil)
+	token, errMsg := getToken()
+	if len(errMsg) != 0 {
+		println(errMsg)
+		return
+	}
+	req.Header.Set("Authorization", "Bearer "+token)
+	response, err := client.Do(req)
 	if err != nil {
 		println("Request failed\n", err.Error())
 		return
@@ -142,7 +190,14 @@ func cmdLs() {
 		return
 	}
 	client := http.Client{}
-	response, err := client.Get(url + "/admin")
+	req, _ := http.NewRequest("GET", url+"/admin", nil)
+	token, errMsg := getToken()
+	if len(errMsg) != 0 {
+		println(errMsg)
+		return
+	}
+	req.Header.Set("Authorization", "Bearer "+token)
+	response, err := client.Do(req)
 	if err != nil {
 		println("Request failed\n", err.Error())
 		return

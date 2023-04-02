@@ -19,7 +19,7 @@ func main() {
 				Description: "set base url for shook",
 				UsageText:   "shook init <base_url>",
 				Action: func(context *cli.Context) error {
-					cmdInit(context.Args().First())
+					cmdInit(context.Args().First(), context.Args().Get(1))
 					return nil
 				},
 			},

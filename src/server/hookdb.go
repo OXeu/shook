@@ -8,6 +8,7 @@ import (
 )
 
 const Path = "~/.config/shook/hooks"
+const ConfigPath = "~/.config/shook/server-config"
 
 func DbPath() string {
 	expand, err := homedir.Expand(Path)
@@ -17,6 +18,15 @@ func DbPath() string {
 	}
 	return expand
 }
+func DbConfigPath() string {
+	expand, err := homedir.Expand(ConfigPath)
+	if err != nil {
+		panic("get home dir error\n" + err.Error())
+		return ""
+	}
+	return expand
+}
+
 func run(key string) string {
 	println("Run hook /" + key)
 	db, err := leveldb.OpenFile(DbPath(), nil)
@@ -34,6 +44,29 @@ func run(key string) string {
 		return "$ " + string(data) + "\nRun /" + key + " command error\n" + err.Error()
 	}
 	return "Successfully!"
+}
+func initServer(token string) string {
+	println("Init hook server with token")
+	println(token)
+	db, err := leveldb.OpenFile(DbConfigPath(), nil)
+	if err != nil {
+		return "Database open error\n" + err.Error()
+	}
+	defer db.Close()
+	var exist = true
+	t, e := db.Get([]byte("token"), nil)
+	if e != nil || len(t) == 0 {
+		exist = false
+	}
+	if err != nil {
+		return "Init server error\n" + err.Error()
+	}
+	if exist {
+		return "Invalid Operation. This server has been initialized yet."
+	} else {
+		err = db.Put([]byte("token"), []byte(token), nil)
+		return "Server initialization successfully. Please keep your token carefully."
+	}
 }
 func add(key string, pwd string, shell string) string {
 	println("Create hook /" + key)
@@ -65,11 +98,20 @@ func del(key string) string {
 		return "Database open error\n" + err.Error()
 	}
 	defer db.Close()
-	err = db.Delete([]byte(key), nil)
-	if err != nil {
-		return "Delete /" + key + " error\n" + err.Error()
+	var exist = true
+	_, e := db.Get([]byte(key), nil)
+	if e != nil {
+		exist = false
 	}
-	return "/" + key + " hooks deleted!\n"
+	if exist {
+		err = db.Delete([]byte(key), nil)
+		if err != nil {
+			return "Delete /" + key + " error\n" + err.Error()
+		}
+		return "/" + key + " hooks deleted!"
+	} else {
+		return "/" + key + " hooks did not exist!"
+	}
 }
 
 func ls() string {
