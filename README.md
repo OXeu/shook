@@ -17,6 +17,12 @@ This repo is at ***experimental*** and contains ***safety risks***, please don't
 # Install
 
 ```shell
+curl -sfL https://sh.runs.fun/shook.sh | bash
+```
+
+**Or**
+
+```shell
 curl -sfL https://raw.githubusercontent.com/ThankRain/shook/main/install.sh | bash
 ```
 
