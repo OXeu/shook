@@ -35,4 +35,3 @@ sudo mv "${TMPDIR}/shook" "${TMPDIR}/shook-server" "/usr/local/bin/" && mv "$TMP
 echo "Congratulations!"
 echo "shook & shook-server installed successfully!"
 echo "shook-server service has been started."
-echo 'you can disable / stop shook-server by systemctl disable shook or systemctl stop shook'
