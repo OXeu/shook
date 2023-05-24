@@ -11,17 +11,7 @@
 
 ---
 
-# At a glance
-
-[![asciicast](https://asciinema.org/a/pntX1vG8sJQ06EqyMxViRMMdk.svg)](https://asciinema.org/a/pntX1vG8sJQ06EqyMxViRMMdk)
-
 # Install
-
-```shell
-curl -sfL https://sh.runs.fun/shook.sh | bash
-```
-
-**Or**
 
 ```shell
 curl -sfL https://raw.githubusercontent.com/ThankRain/shook/main/install.sh | bash
